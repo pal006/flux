@@ -2,11 +2,11 @@
   (require [flux.update :refer [create-doc]]
            [flux.query :refer [create-query]]
            [flux.response :refer [->clojure]])
-  (import [org.apache.solr.client.solrj SolrServer]
+  (import [org.apache.solr.client.solrj SolrServer SolrRequest$METHOD]
           [org.apache.solr.common SolrInputDocument]))
 
 (defn query [^SolrServer solr-server query & [options]]
-  (->clojure (.query solr-server (create-query query options))))
+  (->clojure (.query solr-server (create-query query options) SolrRequest$METHOD/POST)))
 
 (defn request [^SolrServer solr-server request]
   (->clojure (.request solr-server request)))
